@@ -1,0 +1,434 @@
+@import "tailwindcss";
+
+/* Quagera (display) is self-hosted — supplied by the client.
+   NOTE: it covers A-Z a-z space comma period only. No digits or symbols,
+   so numerals anywhere must fall through to Satoshi.
+   Satoshi (body/UI) loads from Fontshare in index.html. */
+@font-face {
+  font-family: "Quagera";
+  src: url("/fonts/quagera-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@theme {
+  /* Figma variables */
+  --color-ink: #1c1c1c;        /* "black" */
+  --color-body: #4c4c4c;       /* "body black" */
+  /* sampled from the canvas */
+  --color-cream: #fcf7f4;
+  /* price accent, from the Summer Collection section */
+  --color-accent: #ea9c54;
+
+  --font-display: "Quagera", "Didot", Georgia, serif;
+  /* Figma sets 200px Quagera in a 340px box; keep that ratio so the
+     display type measures the same height the comp lays out against. */
+  --leading-display: 1.7;
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+
+  /* page shell */
+  --shell-max: 1720px;
+  --shell-gutter: 40px;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Gutters: 16 on mobile, 24 on tablet, 40 from laptop up.
+   The brand ticker is full-bleed and deliberately outside the shell. */
+:root {
+  --gutter: 16px;
+}
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --gutter: var(--shell-gutter);
+  }
+}
+
+/* Every section — nav and footer included — sits in this shell. */
+@utility shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Sizes the wordmark so it spans its container exactly.
+   4.019 is "RADIANT" in Quagera measured as width / font-size; cqw reads the
+   wrapper's content box, so the text fills the gutters at any width without
+   guessing at viewport maths or tripping over the scrollbar. */
+.wordmark-wrap {
+  container-type: inline-size;
+}
+
+.wordmark-fill {
+  font-size: calc(100cqw / 4.019);
+  /* RADIANT is all caps with no descenders, so its ink measures 0.697em.
+     The desktop's 1.7 leading is the comp's box for 200px type; at the fluid
+     sizes here it would leave ~140px of dead space under the wordmark. */
+  line-height: 0.7;
+  /* With leading below 1 the glyphs sit proud of the line box: the ink runs
+     0.091em above its top and stops 0.093em short of its bottom. Trimming by
+     those amounts makes the box coincide with the ink, so the margins above
+     and below produce the gaps they actually read as. In em, so it holds at
+     every fluid size. */
+  margin-top: 0.091em;
+  margin-bottom: -0.093em;
+}
+
+/* ---- hero motion ----------------------------------------------------- */
+
+/* The loops encircle the hourglass, so each one is drawn twice: once behind
+   the shape and once in front, masked to its near (lower) arc. The mask lives
+   on a static wrapper while the artwork spins inside it, so "near" stays near
+   as the loop turns.
+
+   Revolving a flat line drawing is faked with rotateY under perspective: the
+   loop turns about its vertical axis and goes briefly edge-on, which is what
+   sells it as a hoop rather than a spinning shape. */
+/* One small gap travels around each loop, so the ring revolves without the
+   artwork itself moving. 0.97/0.03 keeps the line reading as solid. */
+@keyframes ring-travel {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+.ring-travel {
+  stroke-dasharray: 0.97 0.03;
+  stroke-dashoffset: 0;
+  animation: ring-travel 20s linear infinite;
+}
+
+/* Only the near arc is painted over the hourglass, so the shape sits inside
+   the loops: the far arc behind it is hidden by the shape itself. */
+.ring-near {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 44%, #000 56%);
+  mask-image: linear-gradient(to bottom, transparent 44%, #000 56%);
+}
+
+@keyframes star-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.star-spin {
+  transform-origin: 50% 50%;
+  animation: star-spin 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-travel,
+  .star-spin {
+    animation: none;
+  }
+}
+
+/* ---- Explore Now ------------------------------------------------------ */
+
+/* A gold specular sweep travels across the face on hover, like light catching
+   polished metal — the brand's own material, rather than a generic colour
+   change. The mask clips it to the button's notched silhouette. */
+.btn-sheen {
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  background-image: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgba(230, 203, 148, 0.15) 45%,
+    rgba(240, 219, 173, 0.6) 50%,
+    rgba(230, 203, 148, 0.15) 55%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  background-position: 135% 0;
+  background-repeat: no-repeat;
+  transition: background-position 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+.btn-label {
+  transition:
+    letter-spacing 500ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 500ms ease;
+}
+
+.btn-explore:hover .btn-sheen {
+  background-position: -35% 0;
+}
+
+.btn-explore:hover .btn-label {
+  letter-spacing: 0.055em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-sheen,
+  .btn-label {
+    transition: none;
+  }
+}
+
+/* ---- marquee ---------------------------------------------------------- */
+
+.marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  flex: none;
+  align-items: center;
+  min-width: 100%;
+  width: max-content;
+  animation-name: marquee-shift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* -50% lands the duplicate row exactly where the first one started. */
+@keyframes marquee-shift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track--reverse {
+  animation-direction: reverse;
+}
+
+/* Outlined display type for the category band, as the comp sets it. */
+.band-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ---- collection badge -------------------------------------------------- */
+
+/* Circular stamp type. Spacing is handled by textLength on the textPath, so
+   the phrase closes the ring exactly at any size. */
+.badge-text {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.417em;
+}
+
+/* The ring turns; the star inside stays put. */
+.badge-ring {
+  transform-origin: 50% 50%;
+  animation: badge-turn 26s linear infinite;
+}
+
+@keyframes badge-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-ring {
+    animation: none;
+  }
+}
+
+/* ---- Proceed arrow ----------------------------------------------------- */
+
+/* White in difference blend: it inverts to near-black over the cream page and
+   stays white over the black button, so the colour break follows the button's
+   edge instead of a fixed point in the artwork. */
+.proceed-arrow {
+  mix-blend-mode: difference;
+  transform: translate(0, -50%);
+  pointer-events: none;
+}
+
+/* Only the tail animates: it collapses toward its own right edge, which sits
+   on the button's painted edge, so the white retracts into the black and stops
+   there. The shaft and head beyond it never move. */
+.proceed-tail {
+  transform-origin: right center;
+  transform: translateY(-50%) scaleX(1);
+  transition: transform 550ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.btn-proceed:hover .proceed-tail {
+  transform: translateY(-50%) scaleX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proceed-tail {
+    transition: none;
+  }
+}
+
+/* ---- Explore rule ------------------------------------------------------ */
+
+/* Retracts right, into the circle, and draws back out on the way off. The
+   same easing as the Proceed tail so the two controls behave alike. */
+.explore-rule {
+  /* Collapses toward its right end — the circle's left edge — and draws back
+     out on the way off. */
+  transform-origin: right center;
+  transform: translateY(-50%) scaleX(1);
+  transition: transform 550ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.explore-link:hover .explore-rule {
+  transform: translateY(-50%) scaleX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-rule {
+    transition: none;
+  }
+}
+
+/* ---- collection tabs ---------------------------------------------------- */
+
+.tab-line {
+  position: relative;
+}
+
+.tab-line::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-body);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.tab-line:hover::after,
+.tab-line.is-active::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-line::after {
+    transition: none;
+  }
+}
+
+/* ---- wave reveal -------------------------------------------------------- */
+
+@keyframes wave-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.wave-wipe {
+  animation: wave-wipe 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 100ms both;
+}
+
+@keyframes star-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.star-in {
+  animation: star-in 500ms ease 500ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-wipe {
+    animation: none;
+    clip-path: inset(0 0 0 0) !important;
+  }
+  .star-in {
+    animation: none;
+    opacity: 1 !important;
+  }
+}
+
+/* ---- testimonials ------------------------------------------------------ */
+
+/* Replays on each quote because the block is keyed by index, so stepping
+   through the set reads as a change rather than a swap of text. */
+@keyframes tm-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.tm-in {
+  animation: tm-in 600ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-in {
+    animation: none;
+  }
+}
+
+/* ---- floating cards ---------------------------------------------------- */
+
+/* A slow rise and fall. Applied to a wrapper outside the tilt, so the float
+   and the rotation stay independent of each other. Each card gets its own
+   duration and a negative delay, so they are never at the same point in the
+   cycle. */
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(-7px);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+.card-float {
+  animation-name: card-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-float {
+    animation: none;
+  }
+}
