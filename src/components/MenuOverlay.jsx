@@ -8,9 +8,10 @@ import user from '../assets/icons/user.svg'
 /**
  * The full-screen menu for tablet and mobile (Figma nodes 15:1928 / 15:2456).
  *
- * Geometry is the comp's: 24px gutters, a 68px header matching the closed bar
- * so the wordmark does not shift when the panel opens, links on a 108px
- * rhythm, and the account row pinned near the foot.
+ * The header repeats Nav's bar exactly — same shell gutters, top padding, bar
+ * height, wordmark size and gap above the rule — so nothing moves when the
+ * panel opens over it. Those values live in both files and must change
+ * together.
  *
  * Tablet carries three image panels, mobile one. Each panel runs its own
  * crossfade on a different interval and starts on a different frame, so they
@@ -55,11 +56,11 @@ export default function MenuOverlay({ open, onClose, tabletImages = [], mobileIm
         open ? 'visible opacity-100' : 'invisible opacity-0',
       ].join(' ')}
     >
-      <div className="flex h-full flex-col px-[24px] pt-[24px]">
+      <div className="flex h-full flex-col pt-[18px] md:pt-[30px]">
         {/* header — mirrors the closed bar so the wordmark stays put */}
-        <div className="shrink-0">
-          <div className="flex h-[51px] items-center justify-between">
-            <span className="font-display text-[30px] leading-none">RADIANT</span>
+        <div className="shell shrink-0">
+          <div className="flex h-[40px] items-center justify-between md:h-[51px]">
+            <span className="font-display text-[24px] leading-none md:text-[30px]">RADIANT</span>
 
             <div className="flex items-center gap-[13px]">
               <button type="button" aria-label="Search" className="cursor-pointer">
@@ -76,11 +77,11 @@ export default function MenuOverlay({ open, onClose, tabletImages = [], mobileIm
               </button>
             </div>
           </div>
-          <span aria-hidden className="mt-[17px] block h-px w-full bg-white/25" />
+          <span aria-hidden className="mt-[12px] block h-px w-full bg-white/25 md:mt-[17px]" />
         </div>
 
         {/* body */}
-        <div className="flex min-h-0 flex-1 flex-col pt-[64px] md:flex-row md:justify-between">
+        <div className="shell flex min-h-0 flex-1 flex-col pt-[44px] md:flex-row md:justify-between md:pt-[64px]">
           <nav className="flex flex-col md:h-full md:pb-[24px]">
             <ul>
               {LINKS.map((label, i) => (

@@ -85,7 +85,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
   const show = ready || revealed
 
   return (
-    <section className="relative pt-[40px]">
+    <section className="relative pt-[20px] md:pt-[40px]">
       <div className="shell">
         {/* thumbs, and the oval alongside them on tablet only */}
         <div className="flex items-center justify-between">
@@ -97,15 +97,15 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
                   show={show}
                   delay={T.thumb(i)}
                   as="span"
-                  className="block h-[49px] w-[41px] shrink-0 overflow-hidden rounded-full ring-2 ring-cream"
-                  style={{ marginRight: i < thumbs.length - 1 ? -8 : 0 }}
+                  className="block h-[40px] w-[33px] shrink-0 overflow-hidden rounded-full ring-2 ring-cream md:h-[49px] md:w-[41px]"
+                  style={{ marginRight: i < thumbs.length - 1 ? -6 : 0 }}
                 >
                   <img src={src} alt="" className="h-full w-full object-cover" />
                 </Reveal>
               ))}
             </div>
             <Reveal show={show} delay={T.thumb(thumbs.length)} as="span" className="block">
-              <img src={chevron} width="12" height="20" alt="" className="rotate-90" />
+              <img src={chevron} width="12" height="20" alt="" className="h-[16px] w-[10px] rotate-90 md:h-[20px] md:w-[12px]" />
             </Reveal>
           </div>
 
@@ -121,15 +121,18 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         </div>
 
         {/* sized to span the full content width at every breakpoint */}
-        <div className="wordmark-wrap mt-[40px]">
+        <div className="wordmark-wrap mt-[22px] md:mt-[40px]">
           <h1 className="wordmark-fill whitespace-nowrap font-display leading-(--leading-display) text-ink">
             <Letters text="RADIANT" show={show} />
           </h1>
         </div>
 
         {/* media — centred, and a rounded panel rather than the hourglass */}
-        <div className="mt-[54px] flex justify-center md:mt-[65px]">
-          <div ref={slotRef} className="relative h-[429px] w-[310px] md:h-[719px] md:w-[519px]">
+        <div className="mt-[24px] flex justify-center md:mt-[65px]">
+          <div
+            ref={slotRef}
+            className="relative aspect-[310/429] h-[38svh] max-h-[340px] md:aspect-auto md:h-[719px] md:w-[519px] md:max-h-none"
+          >
             <HeroStage
               slotRef={slotRef}
               sources={wrist?.sources ?? []}
@@ -143,7 +146,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         {/* Copy flows naturally here rather than using the desktop's fixed
             line breaks, so it fills the column. Mobile runs full width at
             16px; tablet caps at 650 so the measure stays readable. */}
-        <div className="mt-[29px] flex gap-[21px] md:mt-[40px]">
+        <div className="mt-[18px] flex gap-[21px] md:mt-[40px]">
           <Reveal
             show={show}
             delay={T.copy(0)}
@@ -162,7 +165,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
           </Reveal>
         </div>
 
-        <Reveal show={show} delay={T.button} className="mt-[43px]">
+        <Reveal show={show} delay={T.button} className="mt-[24px] md:mt-[43px]">
           <a
             href="#"
             className="btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center"
@@ -179,7 +182,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
           </a>
         </Reveal>
 
-        <ul className="mt-[35px] flex items-start gap-[20px] pb-[8px]">
+        <ul className="mt-[22px] flex items-start gap-[20px] pb-[8px] md:mt-[35px]">
           {SOCIALS.map(({ src, label }, i) => (
             <Reveal key={label} show={show} delay={T.social(i)} as="li">
               <a href="#" aria-label={label}>

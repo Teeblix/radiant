@@ -21,8 +21,11 @@ function Divider() {
  * a search icon and a Menu toggle, with the links moving into a full-screen
  * panel (Figma 15:1878 / 15:1970).
  *
- * Gutters follow the comp: 24px on tablet and mobile, 90px on desktop via the
- * shared shell.
+ * Gutters come from the shared shell, so they match the comp at every width.
+ *
+ * The bar's metrics — top padding, height, wordmark size, the gap above the
+ * rule — are repeated by MenuOverlay's own header. They have to stay in step,
+ * or the wordmark jumps the moment the panel opens. Change both together.
  */
 export default function Nav({ revealed, menuImages }) {
   const [open, setOpen] = useState(false)
@@ -31,15 +34,15 @@ export default function Nav({ revealed, menuImages }) {
     <>
       <header
         className={[
-          'pt-[30px] transition-[opacity,transform] duration-700 ease-out',
+          'pt-[18px] transition-[opacity,transform] duration-700 ease-out md:pt-[30px]',
           revealed ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0',
         ].join(' ')}
       >
         <div className="shell">
-          <div className="flex flex-col items-end gap-[17px]">
-            <div className="flex h-[51px] w-full items-center justify-between text-body">
+          <div className="flex flex-col items-end gap-[12px] md:gap-[17px]">
+            <div className="flex h-[40px] w-full items-center justify-between text-body md:h-[51px]">
               <div className="flex items-center xl:gap-[100px]">
-                <a href="#" className="font-display text-[30px] leading-none">
+                <a href="#" className="font-display text-[24px] leading-none md:text-[30px]">
                   RADIANT
                 </a>
 
