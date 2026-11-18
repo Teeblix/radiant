@@ -105,7 +105,13 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
               ))}
             </div>
             <Reveal show={show} delay={T.thumb(thumbs.length)} as="span" className="block">
-              <img src={chevron} width="12" height="20" alt="" className="h-[16px] w-[10px] rotate-90 md:h-[20px] md:w-[12px]" />
+              <img
+                src={chevron}
+                width="20"
+                height="11.5123"
+                alt=""
+                className="h-[9.2px] w-[16px] rotate-90 md:h-[11.5px] md:w-[20px]"
+              />
             </Reveal>
           </div>
 
@@ -128,10 +134,10 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         </div>
 
         {/* media — centred, and a rounded panel rather than the hourglass */}
-        <div className="mt-[24px] flex justify-center md:mt-[65px]">
+        <div className="mt-[32px] flex justify-center md:mt-[65px]">
           <div
             ref={slotRef}
-            className="relative aspect-[310/429] h-[38svh] max-h-[340px] md:aspect-auto md:h-[719px] md:w-[519px] md:max-h-none"
+            className="relative aspect-[310/429] h-[36svh] max-h-[320px] md:aspect-auto md:h-[719px] md:w-[519px] md:max-h-none"
           >
             <HeroStage
               slotRef={slotRef}
@@ -146,7 +152,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         {/* Copy flows naturally here rather than using the desktop's fixed
             line breaks, so it fills the column. Mobile runs full width at
             16px; tablet caps at 650 so the measure stays readable. */}
-        <div className="mt-[18px] flex gap-[21px] md:mt-[40px]">
+        <div className="mt-[26px] flex gap-[21px] md:mt-[40px]">
           <Reveal
             show={show}
             delay={T.copy(0)}
@@ -165,7 +171,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
           </Reveal>
         </div>
 
-        <Reveal show={show} delay={T.button} className="mt-[24px] md:mt-[43px]">
+        <Reveal show={show} delay={T.button} className="mt-[30px] md:mt-[43px]">
           <a
             href="#"
             className="btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center"
