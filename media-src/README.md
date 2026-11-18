@@ -10,9 +10,13 @@ frozen poster.
 > copied back into this folder. The two served files *are* committed, so the
 > site builds without it.
 
-The two files actually served are transcoded from it:
+The two files actually served are transcoded from it. `ffmpeg-static` is not a
+project dependency — it pulls a 44MB binary that the app never uses and the
+build does not need — so install it only when re-transcoding:
 
 ```sh
+npm i -D ffmpeg-static
+
 FF=$(node -e "console.log(require('ffmpeg-static'))")
 
 # Universal fallback — H.264 High, 8-bit 4:2:0, plays essentially everywhere
