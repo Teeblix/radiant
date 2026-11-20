@@ -137,14 +137,14 @@ export default function Footer() {
             'mt-[8px] text-center text-[13px] leading-[20px] text-body/60',
           )}
         >
-          Built by{' '}
+          Designed and built by{' '}
           <a
             href="https://www.linkedin.com/in/teeblix/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-body/80 transition-colors duration-300 hover:text-body"
           >
-            Nadewale
+            Blessing Adewale
           </a>
         </p>
       </div>
