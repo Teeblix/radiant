@@ -79,7 +79,7 @@ export default function Footer() {
                   </svg>
                 </button>
               </div>
-              <span aria-hidden className="block h-[2.409px] w-full bg-ink" />
+              <span aria-hidden className="block h-px w-full bg-ink" />
             </form>
           </div>
 
