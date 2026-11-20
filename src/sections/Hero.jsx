@@ -190,7 +190,7 @@ export default function Hero({ onReady, revealed, thumbs = [], stills = [], wris
 
             <Reveal show={show} delay={T.button}>
               <a
-                href="#"
+                href="#collections"
                 className="btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center"
               >
                 <img src={btn} alt="" className="absolute inset-0 h-full w-full" />

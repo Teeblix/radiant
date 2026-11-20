@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import MenuOverlay, { MenuGlyph } from '../components/MenuOverlay'
+import SearchOverlay from '../components/SearchOverlay'
 import search from '../assets/icons/search.svg'
 import bag from '../assets/icons/bag.svg'
 import user from '../assets/icons/user.svg'
@@ -29,6 +30,7 @@ function Divider() {
  */
 export default function Nav({ revealed, menuImages }) {
   const [open, setOpen] = useState(false)
+  const [searching, setSearching] = useState(false)
 
   return (
     <>
@@ -76,7 +78,7 @@ export default function Nav({ revealed, menuImages }) {
 
               {/* desktop utilities */}
               <div className="hidden items-center gap-[15px] xl:flex">
-                <button type="button" aria-label="Search" className="cursor-pointer">
+                <button type="button" aria-label="Search" className="cursor-pointer" onClick={() => setSearching(true)}>
                   <img src={search} width="19" height="19" alt="" />
                 </button>
                 <Divider />
@@ -92,7 +94,7 @@ export default function Nav({ revealed, menuImages }) {
 
               {/* tablet + mobile: search and the Menu toggle */}
               <div className="flex items-center gap-[13px] xl:hidden">
-                <button type="button" aria-label="Search" className="cursor-pointer">
+                <button type="button" aria-label="Search" className="cursor-pointer" onClick={() => { setSearching(true); if (open) setOpen(false) }}>
                   <img
                     src={search}
                     width="14"
@@ -138,6 +140,7 @@ export default function Nav({ revealed, menuImages }) {
         tabletImages={menuImages?.tablet ?? []}
         mobileImages={menuImages?.mobile ?? []}
       />
+      <SearchOverlay open={searching} onClose={() => setSearching(false)} />
     </>
   )
 }

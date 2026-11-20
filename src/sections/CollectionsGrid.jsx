@@ -60,7 +60,7 @@ export default function CollectionsGrid({ images }) {
   )
 
   return (
-    <section ref={ref} className="relative mt-[80px] overflow-x-clip md:mt-[110px] xl:mt-[140px]">
+    <section id="collections" ref={ref} className="relative mt-[80px] overflow-x-clip md:mt-[110px] xl:mt-[140px]">
       <div className="shell">
         {/* Explore All sits beside the tabs as soon as there is room; on a
             phone that row would crowd them, so it moves under the grid and the

@@ -173,7 +173,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
 
         <Reveal show={show} delay={T.button} className="mt-[36px] md:mt-[43px]">
           <a
-            href="#"
+            href="#collections"
             className="btn-explore relative inline-flex h-[61px] w-[220px] md:h-[73px] md:w-[264px] items-center justify-center"
           >
             <img src={btn} alt="" className="absolute inset-0 h-full w-full" />

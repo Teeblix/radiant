@@ -92,13 +92,13 @@ export default function Footer() {
               <p>
                 Have questions or need assistance? Reach out to our dedicated
                 customer support team at{' '}
-                <a href="mailto:support@radiantjewels.com" className="underline">
+                <a href="mailto:support@radiantjewels.com" >
                   support@radiantjewels.com
                 </a>
               </p>
               <p>
                 or call us at{' '}
-                <a href="tel:+17702636712" className="underline">
+                <a href="tel:+17702636712" >
                   +1 (770) 263-6712
                 </a>
               </p>
@@ -117,8 +117,8 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-[16px] leading-[24px] xl:text-[20px] xl:leading-[30px]">
-              [<a href="#" className="underline">Privacy Policy</a>] | [
-              <a href="#" className="underline">Terms and Conditions</a>]
+              [<a href="#" >Privacy Policy</a>] | [
+              <a href="#" >Terms and Conditions</a>]
             </p>
           </div>
         </div>
@@ -130,6 +130,22 @@ export default function Footer() {
           )}
         >
           © 2026 Radiant Jewelry. All Rights Reserved.
+        </p>
+        <p
+          {...rise(
+            380,
+            'mt-[8px] text-center text-[13px] leading-[20px] text-body/60',
+          )}
+        >
+          Built by{' '}
+          <a
+            href="https://www.linkedin.com/in/teeblix/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-body/80 transition-colors duration-300 hover:text-body"
+          >
+            Nadewale
+          </a>
         </p>
       </div>
     </footer>
