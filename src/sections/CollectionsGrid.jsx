@@ -5,15 +5,21 @@ import btn from '../assets/icons/btn.svg'
 
 const TABS = ['Necklaces', 'Bracelets', 'Rings', 'Earrings']
 
-/* Figma "Vector 4" verbatim. In the comp it is placed at x:0, w:1515.5 on a
-   1512 artboard — it already runs edge to edge, so it is drawn at 100vw and
-   never extended. The cream gap is this same path stroked at 152 — one
-   stroke, so the ribbon keeps a constant width and cannot form a corner at
-   the screen edge. The path swings 136.5 vertically, so the ribbon has to be
-   wider than that swing: anything thinner leaves the rows' own straight edges
-   showing wherever the wave runs far from the gap. */
+/* Figma "Vector 4", at x:0 w:1515.5 on the comp's 1512 artboard — it already
+   runs edge to edge, so it is drawn at 100vw and never extended. Its vertical
+   travel is scaled to 55% of the comp's, which the ribbon's width and the
+   rows' evenness both depend on:
+
+   the ribbon has to be wider than the path's swing or the rows' own straight
+   edges show through it, and the visible height a row loses to the ribbon is
+   the wave's distance from centre — so the two rows differ by twice that.
+   At the comp's full travel the ribbon could not go below 137 and the rows
+   diverged by as much; at 55% it is 92 and they diverge by half.
+
+   One stroke, so the ribbon keeps a constant width and cannot form a corner
+   at the screen edge. */
 const WAVE =
-  'M0.763949 0.645277C87.7639 103.645 420.264 195.645 749.264 88.1453C1086.14 -21.9273 1392.26 100.645 1516.26 137.145'
+  'M0.763949 31.3577C87.7639 88.0076 420.264 138.6076 749.264 79.4827C1086.14 18.9428 1392.26 86.3576 1516.26 106.4326'
 
 const STAR =
   'M30.9093 0L36.8548 14.2017L50.0124 6.20695L46.4748 21.191L61.8187 22.4569L50.1493 32.5L61.8187 42.5431L46.4748 43.809L50.0124 58.7931L36.8548 50.7983L30.9093 65L24.9638 50.7983L11.8063 58.7931L15.3438 43.809L0 42.5431L11.6693 32.5L0 22.4569L15.3438 21.191L11.8063 6.20695L24.9638 14.2017L30.9093 0Z'
@@ -97,14 +103,14 @@ export default function CollectionsGrid({ images }) {
               so the ribbon lands there. */}
           <div className="pointer-events-none absolute top-1/2 left-1/2 w-[100vw] -translate-x-1/2 -translate-y-1/2">
             <svg
-              viewBox="0 -80 1516.55 298"
+              viewBox="0 -16 1516.55 170"
               className={`w-full${inView ? ' wave-wipe' : ''}`}
               style={{ display: 'block', clipPath: 'inset(0 100% 0 0)' }}
             >
               <path
                 d={WAVE}
                 stroke="var(--color-cream)"
-                strokeWidth="152"
+                strokeWidth="92"
                 strokeLinecap="square"
                 fill="none"
               />
@@ -126,7 +132,7 @@ export default function CollectionsGrid({ images }) {
 
               {/* The comp sits the star on the curve where its two halves meet. */}
               <g
-                transform="translate(749.264 88.1453)"
+                transform="translate(749.264 79.4827)"
                 className={inView ? 'star-in' : ''}
                 style={{ opacity: 0 }}
               >
