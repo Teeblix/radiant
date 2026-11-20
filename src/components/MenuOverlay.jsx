@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import useMediaQuery from '../lib/useMediaQuery'
 import Crossfade from './Crossfade'
-import search from '../assets/icons/search.svg'
 import bag from '../assets/icons/bag.svg'
 import user from '../assets/icons/user.svg'
 
@@ -57,27 +56,11 @@ export default function MenuOverlay({ open, onClose, tabletImages = [], mobileIm
       ].join(' ')}
     >
       <div className="flex h-full flex-col pt-[18px] md:pt-[30px]">
-        {/* header — mirrors the closed bar so the wordmark stays put */}
-        <div className="shell shrink-0">
-          <div className="flex h-[40px] items-center justify-between md:h-[51px]">
-            <span className="font-display text-[24px] leading-none md:text-[30px]">RADIANT</span>
-
-            <div className="flex items-center gap-[13px]">
-              <button type="button" aria-label="Search" className="cursor-pointer">
-                <img src={search} width="14" height="14" alt="" className="invert" />
-              </button>
-              <span aria-hidden className="h-[22px] w-px bg-white/35" />
-              <button
-                type="button"
-                onClick={onClose}
-                className="flex cursor-pointer items-center gap-[8px] text-[18px]"
-              >
-                Close
-                <MenuGlyph open />
-              </button>
-            </div>
-          </div>
-          <span aria-hidden className="mt-[12px] block h-px w-full bg-white/25 md:mt-[17px]" />
+        {/* The Nav sits above the overlay (z-110 > z-100) and handles the
+            toggle, so this header only provides vertical spacing. */}
+        <div className="shell shrink-0" aria-hidden>
+          <div className="h-[40px] md:h-[51px]" />
+          <div className="mt-[12px] h-px md:mt-[17px]" />
         </div>
 
         {/* body */}

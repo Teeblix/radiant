@@ -34,13 +34,19 @@ export default function Nav({ revealed, menuImages }) {
     <>
       <header
         className={[
-          'pt-[18px] transition-[opacity,transform] duration-700 ease-out md:pt-[30px]',
+          'relative z-[110] pt-[18px] transition-[opacity,transform] duration-700 ease-out md:pt-[30px]',
           revealed ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0',
         ].join(' ')}
       >
         <div className="shell">
           <div className="flex flex-col items-end gap-[12px] md:gap-[17px]">
-            <div className="flex h-[40px] w-full items-center justify-between text-body md:h-[51px]">
+            <div
+              className={[
+                'flex h-[40px] w-full items-center justify-between md:h-[51px]',
+                'transition-colors duration-500 ease-out',
+                open ? 'text-white' : 'text-body',
+              ].join(' ')}
+            >
               <div className="flex items-center xl:gap-[100px]">
                 <a href="#" className="font-display text-[24px] leading-none md:text-[30px]">
                   RADIANT
@@ -51,14 +57,11 @@ export default function Nav({ revealed, menuImages }) {
                   <ul className="flex items-center gap-[40px] text-[18px]">
                     {LINKS.map(({ label, active }) => (
                       <li key={label}>
-                        {/* Every label is regular weight; the rule under it is
-                            what marks the current page, and it grows on hover. */}
                         <a href="#" className="group inline-block font-normal">
                           {label}
                           <span
                             className={[
-                              // same slack correction, scaled to 18px type
-                              '-mt-[4px] block h-px w-[30%] origin-left bg-body',
+                              '-mt-[4px] block h-px w-[30%] origin-left bg-current',
                               'transition-transform duration-400 ease-out',
                               active ? 'scale-x-100' : 'scale-x-0',
                               'group-hover:scale-x-100',
@@ -90,23 +93,41 @@ export default function Nav({ revealed, menuImages }) {
               {/* tablet + mobile: search and the Menu toggle */}
               <div className="flex items-center gap-[13px] xl:hidden">
                 <button type="button" aria-label="Search" className="cursor-pointer">
-                  <img src={search} width="14" height="14" alt="" />
+                  <img
+                    src={search}
+                    width="14"
+                    height="14"
+                    alt=""
+                    style={{ filter: `invert(${open ? 1 : 0})`, transition: 'filter 500ms ease-out' }}
+                  />
                 </button>
-                <Divider />
+                <span
+                  aria-hidden
+                  className={[
+                    'h-[22px] w-px transition-colors duration-500 ease-out',
+                    open ? 'bg-white/35' : 'bg-body/40',
+                  ].join(' ')}
+                />
                 <button
                   type="button"
-                  onClick={() => setOpen(true)}
+                  onClick={() => setOpen((o) => !o)}
                   aria-expanded={open}
                   aria-controls="site-menu"
                   className="flex cursor-pointer items-center gap-[8px] text-[18px]"
                 >
-                  Menu
-                  <MenuGlyph open={false} />
+                  {open ? 'Close' : 'Menu'}
+                  <MenuGlyph open={open} />
                 </button>
               </div>
             </div>
 
-            <span aria-hidden className="h-px w-full bg-body/30" />
+            <span
+              aria-hidden
+              className={[
+                'h-px w-full transition-colors duration-500 ease-out',
+                open ? 'bg-white/25' : 'bg-body/30',
+              ].join(' ')}
+            />
           </div>
         </div>
       </header>
