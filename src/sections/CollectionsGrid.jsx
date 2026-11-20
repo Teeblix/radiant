@@ -38,7 +38,7 @@ export default function CollectionsGrid({ images }) {
       href="#"
       {...rise(
         240,
-        'btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center',
+        'btn-explore relative inline-flex h-[61px] w-[220px] md:h-[73px] md:w-[264px] items-center justify-center',
       )}
     >
       <img src={btn} alt="" className="absolute inset-0 h-full w-full" />
@@ -47,7 +47,9 @@ export default function CollectionsGrid({ images }) {
         className="btn-sheen absolute inset-0"
         style={{ maskImage: `url("${btn}")`, WebkitMaskImage: `url("${btn}")` }}
       />
-      <span className="relative text-[20px] leading-[30px] text-white">Explore All</span>
+      <span className="relative text-[18px] leading-[26px] text-white md:text-[20px] md:leading-[30px]">
+        Explore All
+      </span>
     </a>
   )
 

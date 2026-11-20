@@ -137,7 +137,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         <div className="mt-[32px] flex justify-center md:mt-[65px]">
           <div
             ref={slotRef}
-            className="relative aspect-[310/429] h-[36svh] max-h-[320px] md:aspect-auto md:h-[719px] md:w-[519px] md:max-h-none"
+            className="relative aspect-[310/429] h-[37.5svh] max-h-[330px] md:aspect-auto md:h-[719px] md:w-[519px] md:max-h-none"
           >
             <HeroStage
               slotRef={slotRef}
@@ -174,7 +174,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         <Reveal show={show} delay={T.button} className="mt-[36px] md:mt-[43px]">
           <a
             href="#"
-            className="btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center"
+            className="btn-explore relative inline-flex h-[61px] w-[220px] md:h-[73px] md:w-[264px] items-center justify-center"
           >
             <img src={btn} alt="" className="absolute inset-0 h-full w-full" />
             <span
@@ -182,7 +182,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
               className="btn-sheen absolute inset-0"
               style={{ maskImage: `url("${btn}")`, WebkitMaskImage: `url("${btn}")` }}
             />
-            <span className="btn-label relative text-[20px] leading-[30px] text-white">
+            <span className="btn-label relative text-[18px] leading-[26px] text-white md:text-[20px] md:leading-[30px]">
               Explore Now
             </span>
           </a>
