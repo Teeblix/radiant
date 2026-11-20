@@ -16,7 +16,12 @@ import user from '../assets/icons/user.svg'
  * crossfade on a different interval and starts on a different frame, so they
  * drift apart instead of changing in lockstep.
  */
-const LINKS = ['Home', 'About', 'Collections', 'Testimonials']
+const LINKS = [
+  { label: 'Home', href: '/#' },
+  { label: 'About', href: '/about' },
+  { label: 'Collections', href: '/#collections' },
+  { label: 'Testimonials', href: '/#testimonials' },
+]
 
 /** Different intervals and offsets per panel — never in sync. */
 const PANELS = [
@@ -67,7 +72,7 @@ export default function MenuOverlay({ open, onClose, tabletImages = [], mobileIm
         <div className="shell flex min-h-0 flex-1 flex-col pt-[44px] md:flex-row md:justify-between md:pt-[64px]">
           <nav className="flex flex-col md:h-full md:pb-[24px]">
             <ul>
-              {LINKS.map((label, i) => (
+              {LINKS.map(({ label, href }, i) => (
                 <li
                   key={label}
                   className={[
@@ -76,10 +81,8 @@ export default function MenuOverlay({ open, onClose, tabletImages = [], mobileIm
                   ].join(' ')}
                   style={{ transitionDelay: open ? `${120 + i * 70}ms` : '0ms' }}
                 >
-                  {/* One size across mobile and tablet. Active state is the
-                      rule, not a heavier weight, so every label matches. */}
                   <a
-                    href="#"
+                    href={href}
                     onClick={onClose}
                     className="group inline-block py-[20px] text-[40px] leading-none"
                   >

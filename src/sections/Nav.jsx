@@ -6,10 +6,10 @@ import bag from '../assets/icons/bag.svg'
 import user from '../assets/icons/user.svg'
 
 const LINKS = [
-  { label: 'Home', active: true },
-  { label: 'About' },
-  { label: 'Collections' },
-  { label: 'Testimonials' },
+  { label: 'Home', href: '/#', active: true },
+  { label: 'About', href: '/about' },
+  { label: 'Collections', href: '/#collections' },
+  { label: 'Testimonials', href: '/#testimonials' },
 ]
 
 /** Thin vertical rule between the utility icons (Line 2 in Figma, 22px tall). */
@@ -57,9 +57,9 @@ export default function Nav({ revealed, menuImages }) {
                 {/* desktop links */}
                 <nav className="hidden xl:block">
                   <ul className="flex items-center gap-[40px] text-[18px]">
-                    {LINKS.map(({ label, active }) => (
+                    {LINKS.map(({ label, href, active }) => (
                       <li key={label}>
-                        <a href="#" className="group inline-block font-normal">
+                        <a href={href} className="group inline-block font-normal">
                           {label}
                           <span
                             className={[

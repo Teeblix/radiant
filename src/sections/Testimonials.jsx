@@ -81,7 +81,7 @@ export default function Testimonials({ items = [] }) {
   if (!item) return null
 
   return (
-    <section ref={ref} className="relative mt-[80px] md:mt-[110px] xl:mt-[140px]">
+    <section id="testimonials" ref={ref} className="relative mt-[80px] md:mt-[110px] xl:mt-[140px]">
       <div className="shell relative hidden xl:block">
         {/* headline band — the two lines step right, star off to the side */}
         <div className="relative h-[289px]">
