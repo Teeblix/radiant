@@ -188,7 +188,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
           </a>
         </Reveal>
 
-        <ul className="mt-[72px] flex items-start gap-[20px] pb-[8px] md:mt-[35px]">
+        <ul className="mt-[22px] flex items-start gap-[20px] pb-[8px] md:mt-[35px]">
           {SOCIALS.map(({ src, label }, i) => (
             <Reveal key={label} show={show} delay={T.social(i)} as="li">
               <a href="#" aria-label={label}>
