@@ -33,11 +33,32 @@ export default function CollectionsGrid({ images }) {
 
   const set = images?.[TABS[activeTab]] ?? images?.[TABS[0]] ?? []
 
+  const exploreAll = (
+    <a
+      href="#"
+      {...rise(
+        240,
+        'btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center',
+      )}
+    >
+      <img src={btn} alt="" className="absolute inset-0 h-full w-full" />
+      <span
+        aria-hidden
+        className="btn-sheen absolute inset-0"
+        style={{ maskImage: `url("${btn}")`, WebkitMaskImage: `url("${btn}")` }}
+      />
+      <span className="relative text-[20px] leading-[30px] text-white">Explore All</span>
+    </a>
+  )
+
   return (
     <section ref={ref} className="relative mt-[80px] overflow-x-clip md:mt-[110px] xl:mt-[140px]">
       <div className="shell">
-        <div className="flex flex-col gap-[22px] md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-[20px] md:gap-[48px] xl:gap-[90px]">
+        {/* Explore All sits beside the tabs as soon as there is room; on a
+            phone that row would crowd them, so it moves under the grid and the
+            tabs take the full width instead. One definition, two slots. */}
+        <div className="flex items-center justify-between gap-[24px]">
+          <div className="flex w-full items-center justify-between md:w-auto md:justify-start md:gap-[48px] xl:gap-[90px]">
             {TABS.map((label, i) => (
               <button
                 key={label}
@@ -52,26 +73,7 @@ export default function CollectionsGrid({ images }) {
             ))}
           </div>
 
-          <a
-            href="#"
-            {...rise(
-              240,
-              'btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center',
-            )}
-          >
-            <img src={btn} alt="" className="absolute inset-0 h-full w-full" />
-            <span
-              aria-hidden
-              className="btn-sheen absolute inset-0"
-              style={{
-                maskImage: `url("${btn}")`,
-                WebkitMaskImage: `url("${btn}")`,
-              }}
-            />
-            <span className="relative text-[20px] leading-[30px] text-white">
-              Explore All
-            </span>
-          </a>
+          <div className="hidden shrink-0 md:block">{exploreAll}</div>
         </div>
 
         {/* The rows very nearly touch — the ribbon, not the gap, is what reads
@@ -137,6 +139,8 @@ export default function CollectionsGrid({ images }) {
             </svg>
           </div>
         </div>
+
+        <div className="mt-[34px] md:hidden">{exploreAll}</div>
       </div>
     </section>
   )

@@ -8,6 +8,13 @@ import useInView from '../lib/useInView'
  * appears to be uncovered rather than to slide in behind a mask. Scaling very
  * slightly past 1 keeps the counter-move from exposing an edge.
  *
+ * The clip lives on an inner element, never on the observed one. An
+ * IntersectionObserver measures its target after the target's own clip-path
+ * has been applied, so an element that both watches itself and clips itself to
+ * nothing can never report as visible — it stays closed for good. Keeping the
+ * two on separate elements is what makes the reveal fire reliably when the
+ * frame is scrolled into view rather than present at mount.
+ *
  * Takes either a `src` or arbitrary `children`, so a frame can hold a single
  * photograph or something that keeps moving afterwards, like a crossfade.
  */
@@ -32,20 +39,24 @@ export default function WipeImage({
     <div
       ref={ref}
       className={`relative overflow-hidden bg-body/10 ${className}`}
-      style={{
-        ...style,
-        clipPath: inView ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
-        transition: `clip-path ${duration}ms cubic-bezier(0.76, 0, 0.24, 1)`,
-        transitionDelay: `${delay}ms`,
-      }}
+      style={style}
     >
-      {children ? (
-        <div className="h-full w-full" style={settle}>
-          {children}
-        </div>
-      ) : (
-        <img src={src} alt={alt} className="h-full w-full object-cover" style={settle} />
-      )}
+      <div
+        className="h-full w-full"
+        style={{
+          clipPath: inView ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
+          transition: `clip-path ${duration}ms cubic-bezier(0.76, 0, 0.24, 1)`,
+          transitionDelay: `${delay}ms`,
+        }}
+      >
+        {children ? (
+          <div className="h-full w-full" style={settle}>
+            {children}
+          </div>
+        ) : (
+          <img src={src} alt={alt} className="h-full w-full object-cover" style={settle} />
+        )}
+      </div>
     </div>
   )
 }
