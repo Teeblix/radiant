@@ -66,7 +66,7 @@ export default function CollectionsGrid({ images }) {
             phone that row would crowd them, so it moves under the grid and the
             tabs take the full width instead. One definition, two slots. */}
         <div className="flex items-center justify-between gap-[24px]">
-          <div className="flex w-full items-center justify-between md:w-auto md:justify-start md:gap-[48px] xl:gap-[90px]">
+          <div className="flex w-full items-center justify-between md:w-auto md:justify-start md:gap-[48px] xl:gap-[40px]">
             {TABS.map((label, i) => (
               <button
                 key={label}
@@ -88,7 +88,7 @@ export default function CollectionsGrid({ images }) {
             as the space between them, and it cuts both edges into waves. Gap
             and crop are in the wave's own units so they track it as the
             viewport changes. */}
-        <div key={activeTab} className="relative mt-[40px] flex gap-x-[12px] md:mt-[64px] md:gap-x-[32px] xl:mt-[100px]">
+        <div key={activeTab} className="relative mt-[40px] flex gap-x-[12px] md:mt-[64px] md:gap-x-[32px] xl:mt-[30px]">
           <div className="flex flex-1 flex-col gap-y-[0.5275vw]">
             <WipeImage src={set[0]} delay={120} className="aspect-square md:aspect-[650/488]" />
             <WipeImage src={set[2]} delay={340} className="aspect-square md:aspect-[650/488]" />

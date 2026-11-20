@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import WipeImage from '../components/WipeImage'
 import useInView from '../lib/useInView'
 import { hourglassD } from '../lib/hourglass'
@@ -24,7 +24,7 @@ const PORTRAIT_H = 654
 const ARROW =
   'M0 26.5L0 27.7045L31.3182 27.7045V26.5V25.2955L0 25.2955L0 26.5ZM32.1699 27.3517C32.6403 26.8813 32.6403 26.1187 32.1699 25.6483L24.5042 17.9826C24.0338 17.5122 23.2712 17.5122 22.8008 17.9826C22.3304 18.453 22.3304 19.2157 22.8008 19.6861L29.6147 26.5L22.8008 33.3139C22.3304 33.7843 22.3304 34.547 22.8008 35.0174C23.2712 35.4878 24.0338 35.4878 24.5042 35.0174L32.1699 27.3517Z'
 
-function StepArrow({ back = false, onClick, disabled, label }) {
+function StepArrow({ back = false, onClick, disabled, label, small = false }) {
   return (
     <button
       type="button"
@@ -36,8 +36,8 @@ function StepArrow({ back = false, onClick, disabled, label }) {
       }`}
     >
       <svg
-        width="53"
-        height="53"
+        width={small ? 40 : 53}
+        height={small ? 40 : 53}
         viewBox="0 0 53 53"
         fill="none"
         aria-hidden
@@ -53,6 +53,20 @@ function StepArrow({ back = false, onClick, disabled, label }) {
 export default function Testimonials({ items = [] }) {
   const [index, setIndex] = useState(0)
   const [ref, inView] = useInView({ rootMargin: '-10% 0px' })
+  const portraitRef = useRef(null)
+
+  useEffect(() => {
+    const el = portraitRef.current
+    if (!el) return
+    const apply = () => {
+      const { offsetWidth: w, offsetHeight: h } = el
+      if (w && h) el.style.clipPath = `path("${hourglassD(w, h)}")`
+    }
+    apply()
+    const ro = new ResizeObserver(apply)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
 
   const rise = (delay, className = '', style = {}) => ({
     className: [
@@ -176,13 +190,10 @@ export default function Testimonials({ items = [] }) {
         </div>
 
         <div
-          className="mt-[34px] w-full md:mt-[48px] md:max-w-[420px]"
+          className="mx-auto mt-[20px] h-[28svh] max-h-[240px] md:mx-0 md:mt-[48px] md:h-auto md:max-h-none md:max-w-[420px] md:w-full"
           style={{ aspectRatio: `${PORTRAIT_W} / ${PORTRAIT_H}` }}
         >
-          <div
-            className="h-full w-full"
-            style={{ clipPath: `path("${hourglassD(PORTRAIT_W, PORTRAIT_H)}")` }}
-          >
+          <div ref={portraitRef} className="h-full w-full">
             <WipeImage
               key={item.image}
               src={item.image}
@@ -193,10 +204,10 @@ export default function Testimonials({ items = [] }) {
           </div>
         </div>
 
-        <div key={index} className="tm-in mt-[34px] flex flex-col gap-[18px] md:mt-[48px]">
-          <div className="flex flex-col gap-[20px]">
+        <div key={index} className="tm-in mt-[20px] flex flex-col gap-[14px] md:mt-[48px] md:gap-[18px]">
+          <div className="flex flex-col gap-[14px] md:gap-[20px]">
             <span aria-hidden className="block h-px w-full bg-body/90" />
-            <blockquote className="flex flex-col gap-[20px] text-[16px] leading-[24px] text-body md:text-[20px] md:leading-[30px]">
+            <blockquote className="flex flex-col gap-[14px] text-[14px] leading-[20px] text-body md:gap-[20px] md:text-[20px] md:leading-[30px]">
               {item.quote.map((para) => (
                 <p key={para}>{para}</p>
               ))}
@@ -204,24 +215,26 @@ export default function Testimonials({ items = [] }) {
             <span aria-hidden className="block h-px w-full bg-body/90" />
           </div>
 
-          <div className="flex flex-col gap-[4px]">
-            <p className="text-[22px] font-medium leading-[30px] text-body md:text-[26px]">
+          <div className="flex flex-col gap-[3px]">
+            <p className="text-[20px] font-medium leading-[26px] text-body md:text-[26px] md:leading-[30px]">
               {item.name}
             </p>
-            <p className="text-[16px] leading-[24px] text-body/80 md:text-[20px]">
+            <p className="text-[14px] leading-[20px] text-body/80 md:text-[20px] md:leading-[24px]">
               {item.role}
             </p>
           </div>
         </div>
 
-        <div className="mt-[30px] flex gap-[34px] md:mt-[40px] md:gap-[50px]">
+        <div className="mt-[18px] flex gap-[28px] md:mt-[40px] md:gap-[50px]">
           <StepArrow
             back
+            small
             label="Previous review"
             disabled={index === 0}
             onClick={() => setIndex((n) => Math.max(0, n - 1))}
           />
           <StepArrow
+            small
             label="Next review"
             disabled={index === items.length - 1}
             onClick={() => setIndex((n) => Math.min(items.length - 1, n + 1))}
