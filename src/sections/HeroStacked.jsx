@@ -85,7 +85,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
   const show = ready || revealed
 
   return (
-    <section className="relative pt-[20px] md:pt-[40px]">
+    <section className="relative pt-[28px] md:pt-[40px]">
       <div className="shell">
         {/* thumbs, and the oval alongside them on tablet only */}
         <div className="flex items-center justify-between">
@@ -127,7 +127,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
         </div>
 
         {/* sized to span the full content width at every breakpoint */}
-        <div className="wordmark-wrap mt-[22px] md:mt-[40px]">
+        <div className="wordmark-wrap mt-[32px] md:mt-[40px]">
           <h1 className="wordmark-fill whitespace-nowrap font-display leading-(--leading-display) text-ink">
             <Letters text="RADIANT" show={show} />
           </h1>
@@ -165,13 +165,13 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
             delay={T.copy(1)}
             duration={DUR.copy}
             as="p"
-            className="text-[16px] leading-[24px] text-body md:max-w-[650px] md:text-[20px] md:leading-[30px]"
+            className="text-[16px] leading-[22px] text-body md:max-w-[650px] md:text-[20px] md:leading-[30px]"
           >
             {COPY_TEXT}
           </Reveal>
         </div>
 
-        <Reveal show={show} delay={T.button} className="mt-[30px] md:mt-[43px]">
+        <Reveal show={show} delay={T.button} className="mt-[36px] md:mt-[43px]">
           <a
             href="#"
             className="btn-explore relative inline-flex h-[73px] w-[264px] items-center justify-center"
@@ -188,7 +188,7 @@ export default function HeroStacked({ onReady, revealed, thumbs = [], stills = [
           </a>
         </Reveal>
 
-        <ul className="mt-[22px] flex items-start gap-[20px] pb-[8px] md:mt-[35px]">
+        <ul className="mt-[72px] flex items-start gap-[20px] pb-[8px] md:mt-[35px]">
           {SOCIALS.map(({ src, label }, i) => (
             <Reveal key={label} show={show} delay={T.social(i)} as="li">
               <a href="#" aria-label={label}>
